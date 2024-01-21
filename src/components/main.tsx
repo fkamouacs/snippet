@@ -1,11 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
 import PouchDB from "pouchdb";
-let i = 0;
+import CreateSnippet from "./createSnippet";
+
 const Main = () => {
   const db = new PouchDB("snippets");
 
   const [snippet, setSnippet] = useState<snippet>();
-  const [snippetIds, setSnippetIds] = useState([]);
+  const [snippetIds, setSnippetIds] = useState<string[]>([]);
+  const [createSnippet, setCreateSnippit] = useState(false);
 
   type snippet = {
     data: string;
@@ -47,12 +49,6 @@ const Main = () => {
     if (snippet !== undefined) return <>{snippet.data}</>;
   };
 
-  const handleNewsnippet = () => {
-    db.post({ data: i++ }).then((res) => {
-      setSnippetIds([...snippetIds, res.id]);
-    });
-  };
-
   const handleNextsnippet = () => {
     if (snippetIds.length > 0) {
       getRandomsnippet().then((randSnip) => {
@@ -63,9 +59,15 @@ const Main = () => {
 
   return (
     <div className="main-container">
-      <div className="main-snippet">{displaysnippet({})}</div>
-      <button onClick={() => handleNewsnippet()}>Add snippet</button>
-      <button onClick={() => handleNextsnippet()}>Next snippet</button>
+      {createSnippet ? (
+        <CreateSnippet />
+      ) : (
+        <div className="main-snippet-container">
+          <div className="main-snippet">{displaysnippet({})}</div>
+          <button onClick={() => setCreateSnippit(true)}>Add snippet</button>
+          <button onClick={() => handleNextsnippet()}>Next snippet</button>
+        </div>
+      )}
     </div>
   );
 };
