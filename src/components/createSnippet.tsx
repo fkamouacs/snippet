@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from "react";
-import { dialog } from "electron";
 
 const CreateSnippet = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -11,6 +11,22 @@ const CreateSnippet = () => {
     console.log(formJson);
   };
 
+  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const files = Array.from(e.target.files);
+    console.log(files[0].path);
+
+    const fileExtension = getExtension(files[0].name);
+    if (fileExtension === "md") {
+      // fetch(files[0].path)
+      //   .then((res) => res.text())
+      //   .then((res) => console.log(res));
+    }
+  };
+
+  const getExtension = (filename: string): string => {
+    return filename.split(".").pop();
+  };
+
   return (
     <div>
       <form className="createSnippet" method="post" onSubmit={handleSubmit}>
@@ -18,13 +34,7 @@ const CreateSnippet = () => {
         <textarea name="snippetContent" />
         <button type="submit">Add snippet</button>
       </form>
-      <button
-        onClick={() =>
-          dialog.showOpenDialog({ properties: ["openFile", "multiSelections"] })
-        }
-      >
-        Select Markdown File
-      </button>
+      <input onChange={handleFileSelected} type="file" />
     </div>
   );
 };
