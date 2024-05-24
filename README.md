@@ -15,5 +15,5 @@ Zod
 
 # Testing
 
-- vitest
+- jest
 - playwright
