@@ -1,5 +1,19 @@
 ## Snippet
 
+# Stack
+
 Nextjs
 Typescript
-MySQL
+MySQL / sequelize
+express.js
+Zod
+
+# Auth
+
+- https://lucia-auth.com/
+- https://clerk.com/
+
+# Testing
+
+- vitest
+- playwright
