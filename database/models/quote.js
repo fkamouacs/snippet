@@ -1,17 +1,17 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-  const Quote = sequelize.define(
-    "Quote",
-    {
-      text: DataTypes.STRING,
-      author: DataTypes.STRING,
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const quoteSchema = new Schema(
+  {
+    text: {
+      type: String,
+      required: true,
     },
-    {
-      timestamps: true,
-    }
-  );
-  Quote.associate = function (models) {
-    // associations can be defined here
-  };
-  return Quote;
-};
+    author: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model('Quote', quoteSchema);

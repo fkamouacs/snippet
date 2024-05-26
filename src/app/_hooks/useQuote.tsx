@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { type Quote } from "../../../lib/types";
-import { z } from "zod";
+import React, { useState, useEffect } from 'react';
+import { type Quote } from '../../../lib/types';
+import { z } from 'zod';
 
 const quoteSchema = z.array(
   z.object({
@@ -12,8 +12,10 @@ const quoteSchema = z.array(
 export const useQuote = () => {
   const [quotes, setQuotes] = useState<Quote[] | null>(null);
 
+  const apiURL = process.env.NEXT_PUBLIC_API_URL;
+
   const fetchQuotes = async () => {
-    fetch("http://localhost:3001/api/quotes")
+    fetch(`${apiURL}api/quotes`)
       .then((res) => res.json())
       .then((quotes: Quote[]) => {
         const validatedQuotes = quoteSchema.safeParse(quotes);
