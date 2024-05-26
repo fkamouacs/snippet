@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["node", "jest"],
     "plugins": [
       {
         "name": "next"
@@ -26,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "database/app.js",
+    "database/api/index.js",
     "database/models/index.js"
   ],
   "exclude": ["node_modules"]

@@ -12,10 +12,10 @@ const quoteSchema = z.array(
 export const useQuote = () => {
   const [quotes, setQuotes] = useState<Quote[] | null>(null);
 
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
+  const apiURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
   const fetchQuotes = async () => {
-    fetch(`${apiURL}api/quotes`)
+    fetch(`${apiURL}/api/quotes`)
       .then((res) => res.json())
       .then((quotes: Quote[]) => {
         const validatedQuotes = quoteSchema.safeParse(quotes);
