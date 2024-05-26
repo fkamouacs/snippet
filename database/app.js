@@ -20,14 +20,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 app.use('/quotes', quoteRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-if (process.env.PORT) {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
+app.get('/', (req, res) => res.send('Express on Vercel'));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // export the app for vercel serverless functions
 module.exports = app;
