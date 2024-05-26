@@ -21,8 +21,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
-app.use('/api/quotes', quoteRoutes);
+app.use('/quotes', quoteRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.PORT) {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+// export the app for vercel serverless functions
+module.exports = app;
