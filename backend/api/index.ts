@@ -8,7 +8,7 @@ import cors from 'cors';
 // const cors = require('cors');
 export const app = express();
 
-import { db } from '../models/index.ts';
+import { db } from '../models/index';
 //const db = require('../models/index.ts');
 //const dotenv = require('dotenv');
 //const lucia = require('lucia');
