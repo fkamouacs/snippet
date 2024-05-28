@@ -17,3 +17,7 @@ Zod
 
 - jest
 - playwright
+
+# UI Library
+
+- https://ui.shadcn.com/
