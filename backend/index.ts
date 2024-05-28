@@ -8,7 +8,7 @@ import cors from 'cors';
 // const cors = require('cors');
 export const app = express();
 
-import { db } from '../models/index';
+import { db } from './models/index.ts';
 //const db = require('../models/index.ts');
 //const dotenv = require('dotenv');
 //const lucia = require('lucia');
@@ -16,10 +16,10 @@ import { Lucia } from 'lucia';
 import { MongodbAdapter } from '@lucia-auth/adapter-mongodb';
 // const MongodbAdapter = require('@lucia-auth/adapter-mongodb');
 
-import { router as userRoutes } from '../routes/userRoutes';
+import { router as userRoutes } from './routes/userRoutes';
 
 // const userRoutes = require('../routes/userRoutes');
-import { router as quoteRoutes } from '../routes/quoteRoutes';
+import { router as quoteRoutes } from './routes/quoteRoutes';
 // const quoteRoutes = require('../routes/quoteRoutes');
 
 dotenv.config();
