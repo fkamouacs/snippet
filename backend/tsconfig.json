@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "esnext",
+    "target": "es6",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -11,10 +11,7 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
-    },
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "incremental": true
+    }
   },
   "include": ["./src/**/*"]
 }
