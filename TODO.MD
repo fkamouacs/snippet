@@ -3,6 +3,7 @@
 ## To do
 
 - [] transfer backend to ts
+- [] fix server deploy https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h
 
 ### Setup
 
