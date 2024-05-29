@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 
+import { router as quoteRoutes } from '../routes/quoteRoutes';
+
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -13,12 +15,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.use('/api/quotes', quoteRoutes);
+
 app.get('/', (_req: Request, res: Response) => {
   return res.send('Express Typescript on Vercel');
-});
-
-app.get('/ping', (_req: Request, res: Response) => {
-  return res.send('pong 🏓');
 });
 
 app.listen(port, () => {
