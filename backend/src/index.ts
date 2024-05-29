@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors';
+const cors = require('cors');
 
 const quoteRoutes = require('../routes/quoteRoutes');
 const db = require('../models/index');
@@ -10,7 +10,6 @@ const port = process.env.PORT || 8080;
 const corsOptions = {
   origin: '*',
   credentials: true,
-  'Access-Control-Allow-Origin': '*',
   optionSuccessStatus: 200,
 };
 
