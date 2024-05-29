@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 
-import { router as quoteRoutes } from '../routes/quoteRoutes';
+const quoteRoutes = require('../controllers/quoteController');
 
 const app = express();
 const port = process.env.PORT || 8080;

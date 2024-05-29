@@ -1,6 +1,6 @@
 import express from 'express';
 export const router = express.Router();
-import * as quoteController from '../controllers/quoteController.ts';
+const quoteController = require('../controllers/quoteController');
 
 router.get('/', quoteController.getAllQuotes);
 router.post('/', quoteController.createQuote);
