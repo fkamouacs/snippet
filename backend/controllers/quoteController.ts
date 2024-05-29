@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import { Quote } from '../models/quote.ts';
 
-export const getAllQuotes = async (req: Request, res: Response) => {
+const getAllQuotes = async (req: Request, res: Response) => {
   try {
     const quotes = await Quote.find({});
     res.json(quotes);
@@ -10,4 +10,9 @@ export const getAllQuotes = async (req: Request, res: Response) => {
   }
 };
 
-export const createQuote = async (req: Request, res: Response) => {};
+const createQuote = async (req: Request, res: Response) => {};
+
+module.exports = {
+  getAllQuotes,
+  createQuote,
+};
