@@ -1,11 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 
 const quoteRoutes = require('../routes/quoteRoutes');
 const db = require('../models/index');
-
-import { Lucia } from 'lucia';
-import { MongodbAdapter } from '@lucia-auth/adapter-mongodb';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -23,12 +20,7 @@ app.use('/api/quotes', quoteRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const adapter = new MongodbAdapter(
-  db.collection('sessions'),
-  db.collection('users')
-);
-
-app.get('/', (_req: Request, res: Response) => {
+app.get('/', (_req, res) => {
   return res.send('Express Typescript on Vercel');
 });
 
