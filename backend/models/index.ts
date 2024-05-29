@@ -9,4 +9,5 @@ mongoose.connect(process.env.MONGO_URI || '').catch((e: unknown) => {
 });
 
 const db = mongoose.connection;
+
 module.exports = db;
