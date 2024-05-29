@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
-import { Quote } from '../models/quote.ts';
+
+import { Quote } from '../models/quote';
 
 const getAllQuotes = async (req: Request, res: Response) => {
   try {
