@@ -4,7 +4,7 @@
 
 Nextjs
 Typescript
-MySQL / sequelize
+MongoDB
 express.js
 Zod
 

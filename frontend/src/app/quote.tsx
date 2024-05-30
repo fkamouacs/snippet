@@ -1,14 +1,24 @@
-import React from "react";
+import React from 'react';
+import { Quote as TQuote } from '../../lib/types';
 
-const Quote = () => {
-  const quote =
-    "How far that little candle throws his beams! So shines a good deed in a weary world. William Shakespeare";
+interface Props {
+  currentQuote: TQuote | null;
+}
 
-  const displayQuote = () => {
-    return quote;
-  };
-
-  return <div>{displayQuote()}</div>;
+const Quote: React.FC<Props> = ({ currentQuote }) => {
+  console.log(currentQuote);
+  return (
+    <>
+      {currentQuote === null ? (
+        <></>
+      ) : (
+        <div className="text-center">
+          <div className="text-xl mb-3">{currentQuote?.text}</div>
+          <div className="font-bold">{`- ${currentQuote?.author}`}</div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Quote;
