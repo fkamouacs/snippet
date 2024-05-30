@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "database/api/index.ts",
-    "database/models/index.ts"
+    "database/models/index.ts",
+    "../tests/Home.test.tsx"
   ],
   "exclude": ["node_modules"]
 }

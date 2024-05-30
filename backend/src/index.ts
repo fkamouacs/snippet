@@ -1,5 +1,6 @@
-import express from 'express';
+const express = require('express');
 const cors = require('cors');
+import type { Request, Response } from 'express';
 
 const quoteRoutes = require('../routes/quoteRoutes');
 const db = require('../models/index');
@@ -21,10 +22,12 @@ app.use('/api/quotes', quoteRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.get('/', (_req, res) => {
+app.get('/', (req: Request, res: Response) => {
   return res.send('Express Typescript on Vercel');
 });
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`);
 });
+
+module.exports = app;

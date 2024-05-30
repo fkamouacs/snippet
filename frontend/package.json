@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "server": "tsx watch ./database/api/index.ts",
-    "test": "jest",
+    "test": "jest --verbose ./tests",
     "test:watch": "jest --watch"
   },
   "dependencies": {
