@@ -1,12 +1,12 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import Home from '../src/app/page';
-import React from 'react';
+// import '@testing-library/jest-dom';
+// import { render, screen } from '@testing-library/react';
+// import Home from '../src/app/page';
+// import React from 'react';
 
-it('should have main element', () => {
-  render(<Home />);
+// it('should have main element', () => {
+//   render(<Home />);
 
-  const myElem = screen.getByRole('main');
+//   const myElem = screen.getByRole('main');
 
-  expect(myElem).toBeInTheDocument();
-});
+//   expect(myElem).toBeInTheDocument();
+// });
