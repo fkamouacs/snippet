@@ -2,8 +2,8 @@
 
 ## To do
 
-- [] transfer backend to ts
-- [] fix server deploy
+- [x] transfer backend to ts
+- [x] fix server deploy
   - https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h
   - https://github.com/lleryo/expressjs-vercel-starter/tree/main
 
@@ -18,4 +18,4 @@
 
 ## Features
 
-- [ ] User Authentication
+- [] User Authentication

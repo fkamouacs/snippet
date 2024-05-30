@@ -12,6 +12,7 @@ const port = process.env.PORT || 8080;
 const corsOptions = {
     origin: '*',
     credentials: true,
+    'Access-Control-Allow-Origin': '*',
     optionSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
