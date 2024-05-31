@@ -6,7 +6,6 @@ interface Props {
 }
 
 const Quote: React.FC<Props> = ({ currentQuote }) => {
-  console.log(currentQuote);
   return (
     <>
       {currentQuote === null ? (
