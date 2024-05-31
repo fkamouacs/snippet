@@ -2,16 +2,30 @@
 
 import { useState, useEffect } from 'react';
 import Quote from './quote';
+import type { Quote as TQuote } from '../../lib/types';
 import { useQuote } from './_hooks/useQuote';
 import useKeyPress from './_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';
+import Spinner from '../components/spinner';
 
 export default function Home() {
   const { quotes, quotePool, setQuotePool, currentQuote, setCurrentQuote } =
     useQuote(true);
 
+  const [layoverQuote, setLayoverQuote] = useState<TQuote | null>(null);
+
   const getQuote = () => {
-    setCurrentQuote(getRandomQuote(quotePool));
+    if (!layoverQuote) {
+      if (quotes && quotePool && quotePool.length === 1) {
+        const notCurrentQuote = quotes.filter((q) => q._id != quotePool[0]._id);
+        setLayoverQuote(getRandomQuote(notCurrentQuote));
+      }
+
+      setCurrentQuote(getRandomQuote(quotePool));
+    } else {
+      setCurrentQuote(layoverQuote);
+      setLayoverQuote(null);
+    }
   };
 
   useKeyPress('Space', getQuote);
@@ -28,13 +42,18 @@ export default function Home() {
         setQuotePool(updatedPool);
       }
     }
-  }, [currentQuote]);
+  }, [currentQuote, layoverQuote]);
 
   return (
     <main className="flex self-center max-w-3xl min-h-screen flex-col items-center justify-center p-5 bg-offwhite text-offblack">
-      <Quote currentQuote={currentQuote} />
-
-      <div className="p-5  text-sm">Press Space for Next Quote</div>
+      {currentQuote === null ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-col items-center">
+          <Quote currentQuote={currentQuote} />
+          <div className="p-5  text-sm">Press Space</div>
+        </div>
+      )}
     </main>
   );
 }

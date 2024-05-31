@@ -21,6 +21,7 @@ const config = {
       colors: {
         offwhite: '#F5F5F5',
         offblack: '#111111',
+        greyborder: '#dbdbdb',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

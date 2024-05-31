@@ -1,23 +1,24 @@
-## Snippet
+# Snippet
 
-# Stack
+## Description
 
-Nextjs
-Typescript
-MongoDB
-express.js
-Zod
+## Features
 
-# Auth
+## License
 
-- https://lucia-auth.com/
-- https://clerk.com/
+## Contact
 
-# Testing
+## Acknowledgements
 
-- jest
-- playwright
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Zod](https://zod.dev/)
+- [shadcn](https://ui.shadcn.com/)
 
-# UI Library
+- [MongoDB](https://www.mongodb.com/)
+- [Express.js](https://expressjs.com/)
+- [supabase](https://supabase.com/)
 
-- https://ui.shadcn.com/
+- [Jest](https://jestjs.io/)
+- [Playwright](https://playwright.dev/)

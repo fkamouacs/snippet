@@ -18,7 +18,7 @@ interface NavProps {
   links: {
     title: string;
     label?: string;
-    icon?: LucideIcon;
+    icon: LucideIcon;
     variant: 'default' | 'ghost';
   }[];
 }
@@ -27,9 +27,9 @@ export function Nav({ links, isCollapsed }: NavProps) {
   return (
     <div
       data-collapsed={isCollapsed}
-      className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2 border-0 border-r rounded-sm border-offblack"
+      className="group flex py-2 data-[collapsed=true]:py-2 border-0 border-r border-greyborder "
     >
-      <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+      <nav className="px-2 group-[[data-collapsed=true]]:justify-center flex flex-col group-[[data-collapsed=true]]:px-2 ">
         {links.map((link, index) =>
           isCollapsed ? (
             <TooltipProvider key={index}>
@@ -44,8 +44,8 @@ export function Nav({ links, isCollapsed }: NavProps) {
                         'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
                     )}
                   >
-                    {/* <link.icon className="h-4 w-4" /> */}
-                    <ShoppingCart className="h-4 w-4" />
+                    <link.icon className="h-4 w-4" />
+
                     <span className="sr-only">{link.title}</span>
                   </Link>
                 </TooltipTrigger>
@@ -73,7 +73,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 'justify-start'
               )}
             >
-              {/* <link.icon className="mr-2 h-4 w-4" /> */}
+              <link.icon className="mr-2 h-4 w-4" />
               <ShoppingCart className="mr-2 h-4 w-4" />
               {link.title}
               {link.label && (

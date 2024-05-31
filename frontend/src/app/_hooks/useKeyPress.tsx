@@ -4,15 +4,18 @@ import { useEffect } from 'react';
 const useKeyPress = (targetKey: string, handler: () => void) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.repeat) {
+        return;
+      }
       if (event.code === targetKey) {
         handler();
       }
     };
 
-    window.addEventListener('keyup', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keyup', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [targetKey, handler]);
 };
