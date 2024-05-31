@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Quote from './quote';
-import { type Quote as TQuote } from '../../lib/types';
 import { useQuote } from './_hooks/useQuote';
 import useKeyPress from './_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';

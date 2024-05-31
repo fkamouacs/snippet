@@ -9,10 +9,10 @@ const useKeyPress = (targetKey: string, handler: () => void) => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyDown);
     };
   }, [targetKey, handler]);
 };
