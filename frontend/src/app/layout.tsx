@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Merriweather } from 'next/font/google';
+
 import Navbarlinks from './navbarlinks';
 import './globals.css';
 
@@ -20,9 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-offblack">
-      <body className={`${merriweather.className} flex `}>
+      <body className={`${merriweather.className} flex max-w-full h-screen `}>
         <Navbarlinks />
-        <div className=" flex-1 flex justify-center">{children}</div>
+        <div className=" flex self-center flex-1 justify-center h-full">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -6,7 +6,6 @@ import type { Quote as TQuote } from '../../lib/types';
 import { useQuote } from './_hooks/useQuote';
 import useKeyPress from './_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';
-import Spinner from '../components/spinner';
 
 export default function Home() {
   const { quotes, quotePool, setQuotePool, currentQuote, setCurrentQuote } =
@@ -16,7 +15,7 @@ export default function Home() {
 
   const getQuote = () => {
     if (!layoverQuote) {
-      if (quotes && quotePool && quotePool.length === 1) {
+      if (quotes && quotePool && quotePool.length === 1 && quotes.length != 1) {
         const notCurrentQuote = quotes.filter((q) => q._id != quotePool[0]._id);
         setLayoverQuote(getRandomQuote(notCurrentQuote));
       }
@@ -45,9 +44,9 @@ export default function Home() {
   }, [currentQuote, layoverQuote]);
 
   return (
-    <main className="flex self-center max-w-3xl min-h-screen flex-col items-center justify-center p-5 bg-offwhite text-offblack">
+    <main className="flex max-w-3xl min-h-screen flex-col items-center justify-center p-5 bg-offwhite text-offblack">
       {currentQuote === null ? (
-        <Spinner />
+        <div>skeleton</div>
       ) : (
         <div className="flex flex-col items-center">
           <Quote currentQuote={currentQuote} />
