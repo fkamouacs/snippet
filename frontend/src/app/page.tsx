@@ -6,6 +6,7 @@ import type { Quote as TQuote } from '../../lib/types';
 import { useQuote } from './_hooks/useQuote';
 import useKeyPress from './_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';
+import { SkeletonQuote } from '../components/skeletonQuote';
 
 export default function Home() {
   const { quotes, quotePool, setQuotePool, currentQuote, setCurrentQuote } =
@@ -46,7 +47,7 @@ export default function Home() {
   return (
     <main className="flex max-w-3xl min-h-screen flex-col items-center justify-center p-5 bg-offwhite text-offblack">
       {currentQuote === null ? (
-        <div>skeleton</div>
+        <SkeletonQuote />
       ) : (
         <div className="flex flex-col items-center">
           <Quote currentQuote={currentQuote} />
