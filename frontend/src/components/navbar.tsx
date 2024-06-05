@@ -126,6 +126,7 @@ export default function Component() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
+
       <Avatar>
         <AvatarImage src="https://github.com/shadcn.png" />
         <AvatarFallback>CN</AvatarFallback>

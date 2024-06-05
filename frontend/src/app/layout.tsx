@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Merriweather } from 'next/font/google';
 import Navbar from '../components/navbar';
+
 import './globals.css';
 
 const merriweather = Merriweather({

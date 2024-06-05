@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { type Quote } from '../../lib/types';
+import { type Quote, type Response } from '../../lib/types';
 import { z } from 'zod';
 import { getRandomQuote } from '../../lib/utils';
 
+const mongoIdSchema = z.string().regex(/^[0-9a-f]{24}$/);
+
 const quoteSchema = z.array(
   z.object({
-    text: z.string(),
+    _id: mongoIdSchema,
+    text: z.string().min(1, 'Quote text cannot be empty'),
     author: z.string(),
+    tags: z.array(z.string()),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
   })
 );
 
@@ -17,20 +23,18 @@ export const useQuote = (isInit: boolean, operation?: QuoteOperation) => {
   const [quotePool, setQuotePool] = useState<Quote[] | null>(null);
   const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
 
-  const apiURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
-
   const fetchQuotes = async () => {
-    fetch(`${apiURL}/api/quotes`)
+    fetch('/api/quotes')
       .then((res) => res.json())
-      .then((quotes: Quote[]) => {
-        const validatedQuotes = quoteSchema.safeParse(quotes);
+      .then((quotes: Response) => {
+        const validatedQuotes = quoteSchema.safeParse(quotes.data);
 
         if (!validatedQuotes.success) {
           console.error(validatedQuotes.error);
           return;
         }
 
-        setQuotes(quotes);
+        setQuotes(quotes.data);
       });
   };
 

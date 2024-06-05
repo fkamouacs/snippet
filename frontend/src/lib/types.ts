@@ -5,3 +5,8 @@ export type Quote = {
   author: string;
   tags: Types.ObjectId;
 };
+
+export type Response = {
+  sucess: boolean;
+  data: any;
+};

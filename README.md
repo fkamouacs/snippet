@@ -22,7 +22,7 @@
 
 - [MongoDB](https://www.mongodb.com/)
 - [Express.js](https://expressjs.com/)
-- [supabase](https://supabase.com/)
+- [Lucia](https://lucia-auth.com/)
 
 ### Testing
 

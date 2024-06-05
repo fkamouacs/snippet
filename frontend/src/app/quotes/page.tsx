@@ -10,7 +10,7 @@ const Quotes = () => {
   const { quotes } = useQuote(true);
 
   return (
-    <div className="w-10/12 max-w-5xl py-12">
+    <div className="w-11/12 max-w-6xl py-14">
       {quotes ? <DataTable columns={columns} data={quotes} /> : <></>}
     </div>
   );
