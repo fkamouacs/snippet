@@ -4,11 +4,7 @@
   "description": "# Stack",
   "main": "index.js",
   "scripts": {
-    "server": "tsx watch ./backend/src/index.ts",
-    "client": "cd frontend && npm run dev",
-    "build": "cd backend && rimraf dist && tsc",
-    "ts.check": "cd backend && tsc --project tsconfig.json",
-    "add-build": "cd backend && git add dist"
+    "client": "cd frontend && npm run dev"
   },
   "author": "",
   "license": "ISC",
@@ -23,11 +19,6 @@
     "rimraf": "^5.0.7",
     "tsx": "^4.11.0"
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
   "dependencies": {
     "ts-node": "^10.9.2"
   }

@@ -21,7 +21,6 @@
 ### Backend
 
 - [MongoDB](https://www.mongodb.com/)
-- [Express.js](https://expressjs.com/)
 - [Lucia](https://lucia-auth.com/)
 
 ### Testing
