@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Quote from './quote';
-import type { Quote as TQuote } from '../../lib/types';
+import type { Quote as TQuote } from '../lib/types';
 import { useQuote } from './_hooks/useQuote';
 import useKeyPress from './_hooks/useKeyPress';
-import { getRandomQuote } from '../../lib/utils';
+import { getRandomQuote } from '../lib/utils';
 import { SkeletonQuote } from '../components/skeletonQuote';
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
   }, [currentQuote, layoverQuote]);
 
   return (
-    <main className="flex max-w-3xl min-h-screen flex-col items-center justify-center p-5 bg-offwhite text-offblack">
+    <main className="flex max-w-3xl  flex-col items-center justify-center p-5 bg-offwhite text-offblack">
       {currentQuote === null ? (
         <SkeletonQuote />
       ) : (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { type Quote } from '../../../lib/types';
+import { type Quote } from '../../lib/types';
 import { z } from 'zod';
-import { getRandomQuote } from '../../../lib/utils';
+import { getRandomQuote } from '../../lib/utils';
 
 const quoteSchema = z.array(
   z.object({

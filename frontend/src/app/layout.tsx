@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Merriweather } from 'next/font/google';
-
-import Navbarlinks from './navbarlinks';
+import Navbar from '../components/navbar';
 import './globals.css';
 
 const merriweather = Merriweather({
@@ -21,9 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-offblack">
-      <body className={`${merriweather.className} flex max-w-full h-screen `}>
-        <Navbarlinks />
-        <div className=" flex self-center flex-1 justify-center h-full">
+      <body
+        className={`${merriweather.className} flex flex-col max-w-full h-screen `}
+      >
+        <Navbar />
+        <div className=" flex self-center justify-center w-full h-full">
           {children}
         </div>
       </body>

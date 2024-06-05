@@ -1,5 +1,5 @@
 import React from 'react';
-import { Quote as TQuote } from '../../lib/types';
+import { Quote as TQuote } from '../lib/types';
 
 interface Props {
   currentQuote: TQuote | null;
