@@ -1,6 +1,5 @@
 // models/Quote.ts
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IUser } from './User';
 
 interface IQuote extends Document {
   text: string;
