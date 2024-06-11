@@ -4,6 +4,7 @@
  * @see https://v0.dev/t/iEOJ3UhOd4C
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
+
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -14,8 +15,23 @@ import {
 } from '@/components/ui/navigation-menu';
 import { SquareScissors } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { redirect, useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
-export default function Component() {
+type User = {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+};
+
+interface IProps {
+  user?: User | null;
+}
+
+export default function Component({ user }: IProps) {
+  const router = useRouter();
+  const userImage = user && user.image ? user.image : undefined;
+
   return (
     <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 justify-between">
       <Sheet>
@@ -98,39 +114,28 @@ export default function Component() {
             </NavigationMenuLink>
             <NavigationMenuLink asChild>
               <Link
-                href="/tags"
+                href="/app/collections"
                 className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
                 prefetch={false}
               >
-                Tags
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/themes"
-                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                prefetch={false}
-              >
-                Themes
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="#"
-                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                prefetch={false}
-              >
-                Contact
+                Collections
               </Link>
             </NavigationMenuLink>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
 
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      {user ? (
+        <Avatar
+          className="cursor-pointer"
+          onClick={() => signOut({ callbackUrl: '/' })}
+        >
+          <AvatarImage src={userImage} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      ) : (
+        <Button onClick={() => router.push('/login')}>Sign In</Button>
+      )}
     </header>
   );
 }

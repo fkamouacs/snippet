@@ -1,7 +1,13 @@
 import React from 'react';
 
+import { UserAuthForm } from '@/components/user-auth-form';
+
 const Login = () => {
-  return <div>Login</div>;
+  return (
+    <div className=" w-full flex flex-col items-center justify-center lg:px-0">
+      <UserAuthForm />
+    </div>
+  );
 };
 
 export default Login;
