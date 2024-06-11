@@ -41,6 +41,7 @@ export const authConfig: NextAuthOptions = {
           return false;
         }
       }
+      return;
     },
   },
 };
