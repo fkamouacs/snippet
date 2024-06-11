@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import Home from '../src/app/page';
+import Home from '../src/app/app/page';
 import React from 'react';
 
 it('should have main element', () => {

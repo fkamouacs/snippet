@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
-import { Quote } from '../../lib/types';
+import { Quote } from '../../../lib/types';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 
-import { useQuote } from '../_hooks/useQuote';
+import { useQuote } from '../../_hooks/useQuote';
 
 const Quotes = () => {
   const { quotes } = useQuote(true);
