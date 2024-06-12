@@ -28,6 +28,7 @@ export const authConfig: NextAuthOptions = {
         try {
           const existingUser = await User.findOne({ email: user.email });
           if (!existingUser) {
+            console.log('no user found');
             const newUser = new User({
               email: user.email,
             });

@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
-import { Quote } from '../../../lib/types';
 import { columns } from './columns';
 import { DataTable } from './data-table';
-
-import { useQuote } from '../../_hooks/useQuote';
+import { useQuoteByUser } from '../../_hooks/useQuoteByUser';
+import { useSession } from 'next-auth/react';
 
 const Quotes = () => {
-  const { quotes } = useQuote(true);
+  const { data: session, status } = useSession();
+  const { quotes } = useQuoteByUser(session?.user);
 
   return (
     <div className="w-11/12 max-w-6xl py-14">

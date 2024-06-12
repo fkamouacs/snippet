@@ -17,12 +17,7 @@ import { SquareScissors } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { redirect, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-
-type User = {
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-};
+import type { User } from '@/lib/types';
 
 interface IProps {
   user?: User | null;
@@ -55,7 +50,7 @@ export default function Component({ user }: IProps) {
               Home
             </Link>
             <Link
-              href="/quotes"
+              href="/app/quotes"
               className="flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >

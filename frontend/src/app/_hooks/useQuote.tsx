@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { type Quote, type Response } from '../../lib/types';
-import { z } from 'zod';
 import { getRandomQuote } from '../../lib/utils';
-
-const mongoIdSchema = z.string().regex(/^[0-9a-f]{24}$/);
-
-const quoteSchema = z.array(
-  z.object({
-    _id: mongoIdSchema,
-    text: z.string().min(1, 'Quote text cannot be empty'),
-    author: z.string(),
-    tags: z.array(z.string()),
-    createdAt: z.coerce.date().optional(),
-    updatedAt: z.coerce.date().optional(),
-  })
-);
+import { quoteSchema } from '@/lib/zodSchemas';
 
 type QuoteOperation = 'add' | 'delete';
 

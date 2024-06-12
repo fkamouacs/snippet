@@ -15,8 +15,7 @@ const QuoteSchema: Schema<IQuote> = new mongoose.Schema({
   author: { type: String, required: true },
   tags: [{ type: String, default: [] }],
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true,
   },
   createdAt: { type: Date, default: Date.now },

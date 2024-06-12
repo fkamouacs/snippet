@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+
 export type Quote = {
   _id: Types.ObjectId;
   text: string;
@@ -9,4 +10,10 @@ export type Quote = {
 export type Response = {
   sucess: boolean;
   data: any;
+};
+
+export type User = {
+  name?: string;
+  email?: string;
+  image?: string;
 };

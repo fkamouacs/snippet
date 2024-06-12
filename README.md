@@ -21,7 +21,7 @@
 ### Backend
 
 - [MongoDB](https://www.mongodb.com/)
-- [Lucia](https://lucia-auth.com/)
+- [NextAuth.js](https://next-auth.js.org/)
 
 ### Testing
 

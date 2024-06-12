@@ -5,13 +5,14 @@ import Quote from '@/models/Quote';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { email: string } }
 ) {
   await dbConnect();
-  const { id } = params;
-
+  const { email } = params;
   try {
-    const quote = await Quote.findById(id).populate('author');
+    const filter = { creator: email };
+    const quote = await Quote.find(filter);
+
     if (!quote) {
       return NextResponse.json(
         { success: false, error: 'Quote not found' },
