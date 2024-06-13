@@ -8,126 +8,60 @@
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuLink,
-} from '@/components/ui/navigation-menu';
+
 import { SquareScissors } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 import { redirect, useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+
 import type { User } from '@/lib/types';
+import { UserNav } from '@/components/userNav';
+import { Sidebar } from '@/components/sidebar';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IProps {
   user?: User | null;
+  setDisplaySmallNav: Dispatch<SetStateAction<boolean>>;
+  displaySmallNav: boolean;
 }
 
-export default function Component({ user }: IProps) {
+export default function Component({
+  user,
+  setDisplaySmallNav,
+  displaySmallNav,
+}: IProps) {
   const router = useRouter();
-  const userImage = user && user.image ? user.image : undefined;
-
+  console.log(displaySmallNav);
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 justify-between">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="lg:hidden">
-            <MenuIcon />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <Link href="/" prefetch={false}>
-            <SquareScissors />
-            <span className="sr-only">Snippet</span>
-          </Link>
-          <div className="grid gap-2 py-6">
-            <Link
-              href="/"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Home
-            </Link>
-            <Link
-              href="/app/quotes"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Quotes
-            </Link>
-            <Link
-              href="/tags"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Tags
-            </Link>
-            <Link
-              href="/themes"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Themes
-            </Link>
-            <Link
-              href="#"
-              className="flex w-full items-center py-2 text-lg font-semibold"
-              prefetch={false}
-            >
-              Contact
-            </Link>
-          </div>
-        </SheetContent>
-      </Sheet>
-
+    <header className="flex h-14 w-full shrink-0 items-center px-4  justify-between">
       <div className="flex items-center">
-        <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="icon" variant="ghost" className="lg:hidden mr-6">
+              <MenuIcon />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <Sidebar source="navbar" />
+          </SheetContent>
+        </Sheet>
+
+        <Button
+          onClick={() => setDisplaySmallNav(!displaySmallNav)}
+          variant="ghost"
+          size="icon"
+          className="mr-6 hidden lg:flex"
+        >
+          <MenuIcon />
+          <span className="sr-only">Toggle navigation menu</span>
+        </Button>
+        <Link href="/" className="mr-6 lg:flex" prefetch={false}>
           <SquareScissors />
           <span className="sr-only">Snippet</span>
         </Link>
-
-        <NavigationMenu className="hidden lg:flex">
-          <NavigationMenuList>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/app"
-                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                prefetch={false}
-              >
-                Home
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/app/quotes"
-                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                prefetch={false}
-              >
-                Quotes
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/app/collections"
-                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-                prefetch={false}
-              >
-                Collections
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuList>
-        </NavigationMenu>
       </div>
-
       {user ? (
-        <Avatar
-          className="cursor-pointer"
-          onClick={() => signOut({ callbackUrl: '/' })}
-        >
-          <AvatarImage src={userImage} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <UserNav user={user} />
       ) : (
         <Button onClick={() => router.push('/login')}>Sign In</Button>
       )}

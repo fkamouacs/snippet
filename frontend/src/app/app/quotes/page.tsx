@@ -11,6 +11,7 @@ const Quotes = () => {
 
   return (
     <div className="w-11/12 max-w-6xl py-14">
+      <h1>Your Quotes</h1>
       {quotes ? <DataTable columns={columns} data={quotes} /> : <></>}
     </div>
   );

@@ -45,7 +45,7 @@ export default function Home() {
   }, [currentQuote, layoverQuote]);
 
   return (
-    <main className="flex max-w-3xl  flex-col items-center justify-center p-5 bg-offwhite text-offblack">
+    <main className="flex max-w-3xl  flex-col items-center justify-center p-5 ">
       {currentQuote === null ? (
         <SkeletonQuote />
       ) : (

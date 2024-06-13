@@ -1,7 +1,11 @@
+/* eslint-disable react/no-children-prop */
 import type { Metadata } from 'next';
 import { Merriweather } from 'next/font/google';
 import Navbar from '../components/navbar';
 import { auth } from '@/lib/auth';
+import { Sidebar } from '@/components/sidebar';
+import { SmallSidebar } from '@/components/smallSidebar';
+import Navigation from './navigation';
 
 import './globals.css';
 
@@ -25,14 +29,18 @@ export default async function RootLayout({
   const user = session ? session.user : null;
 
   return (
-    <html lang="en" className="bg-offblack">
+    <html lang="en" className="">
       <body
-        className={`${merriweather.className} flex flex-col max-w-full h-screen `}
+        className={`${merriweather.className} bg-offwhite text-offblack flex flex-col max-w-full h-screen`}
       >
-        <Navbar user={user} />
-        <div className=" flex self-center justify-center w-full h-full">
-          {children}
-        </div>
+        {/* <Navbar user={user} />
+        <div className="flex h-full overflow-auto">
+          <SmallSidebar />
+          <div className=" flex self-center justify-center w-full h-full">
+            {children}
+          </div>
+        </div> */}
+        <Navigation children={children} user={user} />
       </body>
     </html>
   );
