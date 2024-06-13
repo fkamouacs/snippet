@@ -7,10 +7,13 @@ import { useQuote } from '../_hooks/useQuote';
 import useKeyPress from '../_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';
 import { SkeletonQuote } from '../../components/skeletonQuote';
+import { useSession } from 'next-auth/react';
 
 export default function Home() {
+  const { data: session, status } = useSession();
+
   const { quotes, quotePool, setQuotePool, currentQuote, setCurrentQuote } =
-    useQuote(true);
+    useQuote(true, session?.user);
 
   const [layoverQuote, setLayoverQuote] = useState<TQuote | null>(null);
 

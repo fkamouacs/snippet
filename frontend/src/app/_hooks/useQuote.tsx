@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { type Quote, type Response } from '../../lib/types';
+import { type Quote, type Response, type User } from '../../lib/types';
 import { getRandomQuote } from '../../lib/utils';
 import { quoteSchema } from '@/lib/zodSchemas';
 
 type QuoteOperation = 'add' | 'delete';
 
-export const useQuote = (isInit: boolean, operation?: QuoteOperation) => {
+export const useQuote = (
+  isInit: boolean,
+  user: User,
+  operation?: QuoteOperation
+) => {
   const [quotes, setQuotes] = useState<Quote[] | null>(null);
   const [quotePool, setQuotePool] = useState<Quote[] | null>(null);
   const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
 
   const fetchQuotes = async () => {
-    fetch('/api/quotes')
+    fetch(`/api/quotes/${user.email}`)
       .then((res) => res.json())
       .then((quotes: Response) => {
         const validatedQuotes = quoteSchema.safeParse(quotes.data);
@@ -26,8 +30,8 @@ export const useQuote = (isInit: boolean, operation?: QuoteOperation) => {
   };
 
   useEffect(() => {
-    fetchQuotes();
-  }, []);
+    if (user) fetchQuotes();
+  }, [user]);
 
   useEffect(() => {
     if (isInit) {
