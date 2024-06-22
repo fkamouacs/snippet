@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { User as TUser } from '@/lib/types';
 import { signOut } from 'next-auth/react';
+import { SettingsDialog } from './settingsDialog';
 
 export function UserNav({ user }: { user: TUser }) {
   return (
@@ -53,11 +54,9 @@ export function UserNav({ user }: { user: TUser }) {
             <span>Billing</span>
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
+
+          <SettingsDialog />
+
           <DropdownMenuItem>
             <PlusCircle className="mr-2 h-4 w-4" />
             <span>New Team</span>

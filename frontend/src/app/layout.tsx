@@ -1,11 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import type { Metadata } from 'next';
 import { Merriweather } from 'next/font/google';
-import Navbar from '../components/navbar';
 import { auth } from '@/lib/auth';
-import { Sidebar } from '@/components/sidebar';
-import { SmallSidebar } from '@/components/smallSidebar';
 import Navigation from './navigation';
+import { ThemeProvider } from 'next-themes';
 
 import './globals.css';
 
@@ -31,7 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="">
       <body
-        className={`${merriweather.className} bg-offwhite text-offblack flex flex-col max-w-full h-screen`}
+        className={`${merriweather.className}  bg-offwhite text-offblack dark:bg-offblack dark:text-offwhite flex flex-col max-w-full h-screen`}
       >
         {/* <Navbar user={user} />
         <div className="flex h-full overflow-auto">
@@ -40,7 +38,14 @@ export default async function RootLayout({
             {children}
           </div>
         </div> */}
-        <Navigation children={children} user={user} />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navigation children={children} user={user} />
+        </ThemeProvider>
       </body>
     </html>
   );

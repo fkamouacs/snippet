@@ -17,6 +17,8 @@ import type { User } from '@/lib/types';
 import { UserNav } from '@/components/userNav';
 import { Sidebar } from '@/components/sidebar';
 import { Dispatch, SetStateAction } from 'react';
+import { ModeToggle } from '@/components/modeToggle';
+import { SettingsDialog } from '@/components/settingsDialog';
 
 interface IProps {
   user?: User | null;
@@ -60,6 +62,8 @@ export default function Component({
           <span className="sr-only">Snippet</span>
         </Link>
       </div>
+      <ModeToggle />
+
       {user ? (
         <UserNav user={user} />
       ) : (
