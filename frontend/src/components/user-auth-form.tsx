@@ -16,7 +16,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   return (
-    <div className={cn('grid gap-6 w-1/5 ', className)} {...props}>
+    <div className={cn('', className)} {...props}>
       <Button
         onClick={() => signIn('google', { callbackUrl: '/app' })}
         variant="outline"

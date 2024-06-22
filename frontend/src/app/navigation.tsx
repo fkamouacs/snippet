@@ -21,7 +21,7 @@ export default function Navigation({ children, user }: IProps) {
         displaySmallNav={displaySmallNav}
         setDisplaySmallNav={setDisplaySmallNav}
       />
-      <div className="flex h-full overflow-auto">
+      <div className="flex h-full w-full overflow-auto">
         {displaySmallNav ? <SmallSidebar /> : <Sidebar />}
         <div className=" flex self-center justify-center w-full h-full">
           {children}
