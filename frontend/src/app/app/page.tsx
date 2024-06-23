@@ -8,7 +8,7 @@ import useKeyPress from '../_hooks/useKeyPress';
 import { getRandomQuote } from '../../lib/utils';
 import { SkeletonQuote } from '../../components/skeletonQuote';
 import { useSession } from 'next-auth/react';
-import useTouchstart from '../_hooks/useTouchStart';
+import useTouch from '../_hooks/useTouch';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   useKeyPress('Space', getQuote);
-  useTouchstart(getQuote);
+  useTouch('touchend', getQuote);
 
   useEffect(() => {
     if (quotePool !== null) {
