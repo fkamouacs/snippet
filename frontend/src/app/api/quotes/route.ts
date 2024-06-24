@@ -30,6 +30,9 @@ export async function POST(request: NextRequest) {
   await dbConnect();
   const body = await request.json();
 
+  console.log('hi');
+  console.log(body);
+
   try {
     const quote = await Quote.create(body);
     return NextResponse.json({ success: true, data: quote }, { status: 201 });

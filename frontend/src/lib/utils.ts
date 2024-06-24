@@ -20,3 +20,9 @@ export const getRandomQuote = (quotes: Quote[] | null): Quote | null => {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const sortByNewest = (quotes: Quote[]): Quote[] => {
+  return quotes.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+};
