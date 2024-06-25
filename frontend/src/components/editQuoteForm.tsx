@@ -17,10 +17,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
-import UseAddQuote from '@/app/_hooks/useAddQuote';
+
 import { Quote } from '@/lib/types';
 import { useSession } from 'next-auth/react';
-import { fetchQuotesByUser } from '@/lib/api';
+
+import { fetchQuotesByUser, editQuote } from '@/lib/api';
 import { sortByNewest } from '@/lib/utils';
 
 const FormSchema = z.object({
@@ -28,21 +29,25 @@ const FormSchema = z.object({
     message: 'Quote must not be longer than 1000 characters.',
   }),
   author: z.string().trim().min(1).max(160, {
-    message: 'Author must not be longer than 30 characters.',
+    message: 'Quote must not be longer than 30 characters.',
   }),
 });
 
 type Props = {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  quote: Quote;
   setQuotes: Dispatch<SetStateAction<Quote[]>>;
 };
 
-export const AddQuoteForm = ({ setIsOpen, setQuotes }: Props) => {
+export const EditQuoteForm = ({ setIsOpen, quote, setQuotes }: Props) => {
   const { data: session, status } = useSession();
-  const { addQuote } = UseAddQuote();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      quote: quote.text,
+      author: quote.author,
+    },
   });
   const { toast } = useToast();
 
@@ -50,20 +55,20 @@ export const AddQuoteForm = ({ setIsOpen, setQuotes }: Props) => {
     console.log(data);
     setIsOpen(false);
 
-    const newQuote: Quote = {
+    const editedQuote: Quote = {
+      _id: quote._id,
       text: data.quote,
       author: data.author,
       creator: session.user.email,
     };
 
-    addQuote(newQuote).then(() => {
+    editQuote(editedQuote).then(() => {
       fetchQuotesByUser(session?.user).then((res) => {
         setQuotes(sortByNewest(res));
       });
     });
-
     toast({
-      description: 'Quote added',
+      description: 'Quote updated',
     });
   }
 
@@ -78,7 +83,7 @@ export const AddQuoteForm = ({ setIsOpen, setQuotes }: Props) => {
               <FormLabel>Quote</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Type your quote here"
+                  defaultValue={quote.text}
                   className="resize-none"
                   {...field}
                 />
@@ -95,7 +100,7 @@ export const AddQuoteForm = ({ setIsOpen, setQuotes }: Props) => {
             <FormItem>
               <FormLabel>Author</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input defaultValue={quote.author} {...field} />
               </FormControl>
 
               <FormMessage />

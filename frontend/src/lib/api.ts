@@ -14,3 +14,16 @@ export const fetchQuotesByUser = async (user: User) => {
       return quotes.data;
     });
 };
+
+export const editQuote = async (quote: Quote) => {
+  return fetch('/api/quotes/', {
+    method: 'PUT',
+    body: JSON.stringify(quote),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+};
