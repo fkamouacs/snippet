@@ -71,8 +71,12 @@ const Quotes = () => {
 
   return (
     <div className="w-11/12 max-w-6xl py-14">
-      <div className="flex justify-between mb-4">
-        <h1>Your Quotes</h1>
+      <div className="flex justify-between mb-4 items-end">
+        <div>
+          <h1 className="text-4xl mb-2">Quotes</h1>
+          <h2>Manage your quotes</h2>
+        </div>
+
         <AddQuoteDialog setQuotes={setQuotes} />
       </div>
 

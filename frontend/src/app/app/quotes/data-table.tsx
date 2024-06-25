@@ -1,11 +1,13 @@
 'use client';
-
+import { useState } from 'react';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  ColumnFiltersState,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 
 import {
@@ -16,10 +18,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
+import { Input } from '@/components/ui/input';
 import { DataTablePagination } from '@/components/datatablePagnation';
 import type { Quote } from '@/lib/types';
 import { Dispatch, SetStateAction } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -32,15 +41,52 @@ export function DataTable<TData, TValue>({
   data,
   setQuotes,
 }: DataTableProps<TData, TValue>) {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [selectedOption, setSelectedOption] = useState('text');
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
   });
 
   return (
     <div>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder={`Filtering ${selectedOption}s...`}
+          value={
+            (table
+              .getColumn(`${selectedOption}`)
+              ?.getFilterValue() as string) ?? ''
+          }
+          onChange={(event) =>
+            table
+              .getColumn(`${selectedOption}`)
+              ?.setFilterValue(event.target.value)
+          }
+          className="mr-1 max-w-sm"
+        />
+        <Select
+          value={selectedOption}
+          onValueChange={(e) => {
+            setSelectedOption(e);
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Theme" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="text">Text</SelectItem>
+            <SelectItem value="author">Author</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="rounded-md border">
         <Table className="">
           <TableHeader>
