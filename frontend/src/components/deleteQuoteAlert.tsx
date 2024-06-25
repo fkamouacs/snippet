@@ -11,16 +11,39 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Row } from '@tanstack/react-table';
-
 import React from 'react';
+import { deleteQuote } from '@/lib/api';
+import { useToast } from '@/components/ui/use-toast';
+import type { Quote } from '@/lib/types';
+import { Dispatch, SetStateAction } from 'react';
+import { fetchQuotesByUser } from '@/lib/api';
+import { sortByNewest } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   selectedRows: Row<any>[];
+  setQuotes: Dispatch<SetStateAction<Quote[]>>;
 };
 
-const DeleteQuoteAlert = ({ selectedRows }: Props) => {
+const DeleteQuoteAlert = ({ selectedRows, setQuotes }: Props) => {
+  const { data: session, status } = useSession();
+  const { toast } = useToast();
+
   const handleDelete = () => {
-    console.log(selectedRows);
+    const deleteAll = async () => {
+      for (let i = 0; i < selectedRows.length; i++) {
+        await deleteQuote(selectedRows[i].original);
+      }
+    };
+
+    deleteAll().then(() => {
+      fetchQuotesByUser(session?.user).then((res) => {
+        setQuotes(sortByNewest(res));
+      });
+      toast({
+        description: 'Quote(s) deleted',
+      });
+    });
   };
 
   return (

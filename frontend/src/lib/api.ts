@@ -27,3 +27,16 @@ export const editQuote = async (quote: Quote) => {
     .then((data) => console.log(data))
     .catch((error) => console.error(error));
 };
+
+export const deleteQuote = async (quote: Quote) => {
+  return fetch('/api/quotes/', {
+    method: 'DELETE',
+    body: JSON.stringify(quote),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+};

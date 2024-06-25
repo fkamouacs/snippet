@@ -57,13 +57,15 @@ export const AddQuoteForm = ({ setIsOpen, setQuotes }: Props) => {
     };
 
     addQuote(newQuote).then(() => {
-      fetchQuotesByUser(session?.user).then((res) => {
-        setQuotes(sortByNewest(res));
-      });
-    });
-
-    toast({
-      description: 'Quote added',
+      fetchQuotesByUser(session?.user)
+        .then((res) => {
+          setQuotes(sortByNewest(res));
+        })
+        .then(() => {
+          toast({
+            description: 'Quote added',
+          });
+        });
     });
   }
 

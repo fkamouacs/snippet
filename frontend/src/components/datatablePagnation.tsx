@@ -15,13 +15,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import DeleteQuoteAlert from '@/components/deleteQuoteAlert';
+import type { Quote } from '@/lib/types';
+import { Dispatch, SetStateAction } from 'react';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
+  setQuotes: Dispatch<SetStateAction<Quote[]>>;
 }
 
 export function DataTablePagination<TData>({
   table,
+  setQuotes,
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between px-2 py-4">
@@ -29,6 +33,7 @@ export function DataTablePagination<TData>({
         {table.getFilteredSelectedRowModel().rows.length > 0 ? (
           <DeleteQuoteAlert
             selectedRows={table.getFilteredSelectedRowModel().rows}
+            setQuotes={setQuotes}
           />
         ) : (
           <Button disabled className="mr-3">

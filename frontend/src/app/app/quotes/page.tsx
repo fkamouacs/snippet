@@ -76,7 +76,11 @@ const Quotes = () => {
         <AddQuoteDialog setQuotes={setQuotes} />
       </div>
 
-      {quotes ? <DataTable columns={columns} data={quotes} /> : <></>}
+      {quotes ? (
+        <DataTable columns={columns} data={quotes} setQuotes={setQuotes} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

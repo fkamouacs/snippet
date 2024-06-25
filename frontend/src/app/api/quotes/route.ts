@@ -77,3 +77,27 @@ export async function PUT(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  await dbConnect();
+  const body = await request.json();
+
+  try {
+    const quote = await Quote.findByIdAndDelete(body._id);
+    return NextResponse.json({ success: true, data: quote });
+  } catch (error) {
+    if (error instanceof Error)
+      return NextResponse.json(
+        { success: false, error: error.message },
+        { status: 400 }
+      );
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: error,
+      },
+      { status: 400 }
+    );
+  }
+}
