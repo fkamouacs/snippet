@@ -19,3 +19,14 @@ export type User = {
   email?: string;
   image?: string;
 };
+
+export type Collection = {
+  name: string;
+  description: string;
+  owner: Types.ObjectId;
+  quotes: [Types.ObjectId];
+  savedBy: [Types.ObjectId];
+  tags: [Types.ObjectId];
+  isPublic: boolean;
+  createdAt: string;
+};

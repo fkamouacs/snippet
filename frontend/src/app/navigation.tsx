@@ -24,9 +24,7 @@ export default function Navigation({ children, user }: IProps) {
       />
       <div className="flex h-full w-full overflow-auto">
         {displaySmallNav ? <SmallSidebar /> : <Sidebar />}
-        <div className=" flex self-center justify-center w-full h-full">
-          {children}
-        </div>
+        {children}
         <Toaster />
       </div>
     </>

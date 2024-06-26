@@ -50,15 +50,17 @@ export default function Home() {
   }, [currentQuote, layoverQuote]);
 
   return (
-    <main className="flex max-w-3xl  flex-col items-center justify-center p-5 ">
-      {currentQuote === null ? (
-        <SkeletonQuote />
-      ) : (
-        <div className="flex flex-col items-center">
-          <Quote currentQuote={currentQuote} />
-          <div className="p-5  text-sm">Press Space</div>
-        </div>
-      )}
-    </main>
+    <div className=" flex self-center justify-center w-full h-full">
+      <main className="flex max-w-3xl  flex-col items-center justify-center p-5 ">
+        {currentQuote === null ? (
+          <SkeletonQuote />
+        ) : (
+          <div className="flex flex-col items-center">
+            <Quote currentQuote={currentQuote} />
+            <div className="p-5  text-sm">Press Space</div>
+          </div>
+        )}
+      </main>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { DataTable } from './data-table';
 import { fetchQuotesByUser } from '@/lib/api';
 import { useSession } from 'next-auth/react';
@@ -22,8 +22,6 @@ const Quotes = () => {
         setQuotes(sortByNewest(res));
       });
   }, [session]);
-
-  const handleAddQuote = () => {};
 
   const columns: ColumnDef<Quote>[] = [
     {
@@ -70,21 +68,23 @@ const Quotes = () => {
   ];
 
   return (
-    <div className="w-11/12 max-w-6xl py-14">
-      <div className="flex justify-between mb-4 items-end">
-        <div>
-          <h1 className="text-4xl mb-2">Quotes</h1>
-          <h2>Manage your quotes</h2>
+    <div className=" flex self-center justify-center w-full h-full">
+      <div className="w-11/12 max-w-6xl py-14">
+        <div className="flex justify-between mb-4 items-end">
+          <div>
+            <h1 className="text-4xl mb-2">Quotes</h1>
+            <h2>Manage your quotes</h2>
+          </div>
+
+          <AddQuoteDialog setQuotes={setQuotes} />
         </div>
 
-        <AddQuoteDialog setQuotes={setQuotes} />
+        {quotes ? (
+          <DataTable columns={columns} data={quotes} setQuotes={setQuotes} />
+        ) : (
+          <></>
+        )}
       </div>
-
-      {quotes ? (
-        <DataTable columns={columns} data={quotes} setQuotes={setQuotes} />
-      ) : (
-        <></>
-      )}
     </div>
   );
 };
