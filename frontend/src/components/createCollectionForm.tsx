@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -14,17 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from '@/components/ui/command';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Switch } from '@/components/ui/switch';
 
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
@@ -37,13 +29,10 @@ import { sortByNewest } from '@/lib/utils';
 import CommandQuotes from './commandQuotes';
 
 const FormSchema = z.object({
-  quote: z.string().trim().min(1).max(1000, {
-    message: 'Quote must not be longer than 1000 characters.',
+  name: z.string().trim().min(1).max(160, {
+    message: 'Collection name must not be longer than 30 characters.',
   }),
-  author: z.string().trim().min(1).max(160, {
-    message: 'Author must not be longer than 30 characters.',
-  }),
-  quotes: z.array(z.string()),
+  description: z.string().optional(),
 });
 
 type Props = {
@@ -52,7 +41,8 @@ type Props = {
 
 export const CreateCollectionForm = ({ setIsOpen }: Props) => {
   const { data: session, status } = useSession();
-  const { addQuote } = UseAddQuote();
+  const [currentQuotes, setCurrentQuotes] = useState<Quote[]>([]);
+  const [isPublic, setIsPublic] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -61,13 +51,9 @@ export const CreateCollectionForm = ({ setIsOpen }: Props) => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
+    console.log(currentQuotes);
+    console.log(isPublic);
     setIsOpen(false);
-
-    const newQuote: Quote = {
-      text: data.quote,
-      author: data.author,
-      creator: session.user.email,
-    };
 
     // addQuote(newQuote).then(() => {
     //   fetchQuotesByUser(session?.user)
@@ -84,13 +70,35 @@ export const CreateCollectionForm = ({ setIsOpen }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col w-full space-y-6 "
+      >
+        <div className="self-end">
+          <FormField
+            name="isPublic"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="mr-2">Public</FormLabel>
+                <FormControl>
+                  <Switch
+                    checked={isPublic}
+                    onCheckedChange={() => setIsPublic(!isPublic)}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
-          name="quote"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quote</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Type your quote here"
@@ -105,10 +113,10 @@ export const CreateCollectionForm = ({ setIsOpen }: Props) => {
         />
         <FormField
           control={form.control}
-          name="author"
+          name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Author</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -119,13 +127,15 @@ export const CreateCollectionForm = ({ setIsOpen }: Props) => {
         />
 
         <FormField
-          control={form.control}
           name="quotes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Quotes</FormLabel>
+              <FormLabel>Add Quotes</FormLabel>
               <FormControl>
-                <CommandQuotes />
+                <CommandQuotes
+                  currentQuotes={currentQuotes}
+                  setCurrentQuotes={setCurrentQuotes}
+                />
               </FormControl>
 
               <FormMessage />

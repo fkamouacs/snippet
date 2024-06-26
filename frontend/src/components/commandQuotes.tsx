@@ -1,4 +1,11 @@
-import { useState, useEffect, useRef, createRef } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  createRef,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import {
   Command,
   CommandDialog,
@@ -17,10 +24,15 @@ import { sortByNewest } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import QuoteBadge from '@/components/quoteBadge';
 
-const CommandQuotes = () => {
+type Props = {
+  currentQuotes: Quote[];
+  setCurrentQuotes: Dispatch<SetStateAction<Quote[]>>;
+};
+
+const CommandQuotes = ({ currentQuotes, setCurrentQuotes }: Props) => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const { data: session, status } = useSession();
-  const [currentQuotes, setCurrentQuotes] = useState<Quote[]>([]);
+  // const [currentQuotes, setCurrentQuotes] = useState<Quote[]>([]);
   const checkBoxRef = useRef([]);
 
   useEffect(() => {
@@ -101,7 +113,7 @@ const CommandQuotes = () => {
         <CommandEmpty>No results found.</CommandEmpty>
 
         <CommandSeparator />
-        <CommandGroup heading="Quotes">{displayQuotes()}</CommandGroup>
+        <CommandGroup heading="Your Quotes">{displayQuotes()}</CommandGroup>
       </CommandList>
     </Command>
   );
