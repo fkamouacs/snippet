@@ -24,7 +24,7 @@ import { Input } from '@/components/ui/input';
 import UseAddQuote from '@/app/_hooks/useAddQuote';
 import { Quote } from '@/lib/types';
 import { useSession } from 'next-auth/react';
-import { fetchQuotesByUser } from '@/lib/api';
+import { addCollection, fetchCollectionsByUser } from '@/lib/api';
 import { sortByNewest } from '@/lib/utils';
 import CommandQuotes from './commandQuotes';
 
@@ -37,9 +37,10 @@ const FormSchema = z.object({
 
 type Props = {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setCollections: Dispatch<SetStateAction<any[]>>;
 };
 
-export const CreateCollectionForm = ({ setIsOpen }: Props) => {
+export const CreateCollectionForm = ({ setIsOpen, setCollections }: Props) => {
   const { data: session, status } = useSession();
   const [currentQuotes, setCurrentQuotes] = useState<Quote[]>([]);
   const [isPublic, setIsPublic] = useState(false);
@@ -54,6 +55,27 @@ export const CreateCollectionForm = ({ setIsOpen }: Props) => {
     console.log(currentQuotes);
     console.log(isPublic);
     setIsOpen(false);
+
+    const currentQuoteIds = currentQuotes.map((quote) => quote._id);
+    console.log(currentQuoteIds);
+
+    const newCollection = {
+      name: data.name,
+      description: data.description,
+      quotes: currentQuoteIds,
+      isPublic: isPublic,
+      owner: session.user.email,
+    };
+
+    addCollection(newCollection).then(() => {
+      fetchCollectionsByUser(session?.user)
+        .then((res) => {
+          setCollections(res);
+        })
+        .then(() => {
+          toast({ description: 'Collection added' });
+        });
+    });
 
     // addQuote(newQuote).then(() => {
     //   fetchQuotesByUser(session?.user)

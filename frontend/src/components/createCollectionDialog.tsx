@@ -16,9 +16,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { CreateCollectionForm } from '@/components/createCollectionForm';
 import { Quote } from '@/lib/types';
 
-type Props = {};
+type Props = {
+  setCollections: Dispatch<SetStateAction<any[]>>;
+};
 
-export function CreateCollectionDialog({}: Props) {
+export function CreateCollectionDialog({ setCollections }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const handleAddQuote = () => {};
 
@@ -34,7 +36,10 @@ export function CreateCollectionDialog({}: Props) {
           <DialogTitle>Create Collection</DialogTitle>
         </DialogHeader>
 
-        <CreateCollectionForm setIsOpen={setIsOpen} />
+        <CreateCollectionForm
+          setIsOpen={setIsOpen}
+          setCollections={setCollections}
+        />
       </DialogContent>
     </Dialog>
   );

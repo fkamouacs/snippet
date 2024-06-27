@@ -21,12 +21,13 @@ export type User = {
 };
 
 export type Collection = {
+  _id?: Types.ObjectId;
   name: string;
-  description: string;
-  owner: Types.ObjectId;
-  quotes: [Types.ObjectId];
-  savedBy: [Types.ObjectId];
-  tags: [Types.ObjectId];
+  description?: string;
+  owner: String;
+  quotes?: Types.ObjectId[];
+  savedBy?: Types.ObjectId[];
+  tags?: String[];
   isPublic: boolean;
-  createdAt: string;
+  createdAt?: string;
 };
