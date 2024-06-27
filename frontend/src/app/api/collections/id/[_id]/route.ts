@@ -8,8 +8,7 @@ export async function GET(
 ) {
   await dbConnect();
   const { _id } = params;
-  console.log('XD');
-  console.log(_id);
+
   try {
     const filter = { _id: _id };
     const collection = await Collection.findOne(filter);

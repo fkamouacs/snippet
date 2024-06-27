@@ -15,6 +15,26 @@ export const fetchQuotesByUser = async (user: User) => {
     });
 };
 
+export const fetchQuotesById = async (quotes: Quote[]) => {
+  const fetchPromises = quotes.map(async (id) => {
+    return fetch('/api/quotes/id/', {
+      method: 'POST',
+      body: JSON.stringify(id),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((res) => res.json())
+      .then((quote: Response) => {
+        return quote.data;
+      });
+  });
+
+  const results = await Promise.all(fetchPromises);
+
+  return results;
+};
+
 export const editQuote = async (quote: Quote) => {
   return fetch('/api/quotes/', {
     method: 'PUT',
